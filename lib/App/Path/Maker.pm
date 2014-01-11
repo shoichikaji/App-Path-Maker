@@ -1,4 +1,4 @@
-package App::Template::Maker;
+package App::Path::Maker;
 use 5.008005;
 use strict;
 use warnings;
@@ -14,11 +14,15 @@ our $VERSION = "0.001";
 sub new {
     my $class = shift;
     my %opt   = ref $_[0] ? %{ $_[0] } : @_;
-    $opt{data_section} = Text::MicroTemplate::DataSection->new(
-        package   => ($opt{package} || scalar caller),
-        use_cache => $opt{use_cache}
+    my $base_dir = delete $opt{base_dir};
+    my $data_section  = Text::MicroTemplate::DataSection->new(
+        package => scalar(caller),
+        %opt,
     );
-    bless \%opt, $class;
+    bless {
+        base_dir => $base_dir,
+        data_section => $data_section
+    }, $class;
 }
 
 sub _abs_path {
@@ -64,13 +68,13 @@ __END__
 
 =head1 NAME
 
-App::Template::Maker - create template files and directories
+App::Path::Maker - make files and directories as scaffolding
 
 =head1 SYNOPSIS
 
-    use App::Template::Maker;
+    use App::Path::Maker;
 
-    my $maker = App::Template::Maker->new;
+    my $maker = App::Path::Maker->new;
     $maker->render_to_file('app.conf.mt' => 'app.conf', {name => 'my app'});
     $maker->create_dir('log');
     $maker->write_file('.gitignore', '*.tar.gz');
@@ -83,11 +87,12 @@ App::Template::Maker - create template files and directories
 
 =head1 DESCRIPTION
 
-App::Template::Maker helps you create template files or directories.
+App::Path::Maker helps you make files or directories
+as scaffolding.
 When I wrote a CLI script for mojo,
 I found that L<Mojolicious::Command> is very useful.
 This module provides some functionality of that module with
-template syntax of L<Text::MicroTemplate>.
+template syntax L<Text::MicroTemplate>.
 
 =head2 CONSTRUCTOR
 
@@ -98,8 +103,6 @@ Constructor C<new> accepts following options:
 =item base_dir
 
 =item package
-
-=item use_cache
 
 =back
 

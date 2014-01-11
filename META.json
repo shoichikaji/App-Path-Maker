@@ -1,5 +1,5 @@
 {
-   "abstract" : "create template files and directories",
+   "abstract" : "make files and directories as scaffolding",
    "author" : [
       "Shoichi Kaji <skaji@outlook.com>"
    ],
@@ -12,7 +12,7 @@
       "url" : "http://search.cpan.org/perldoc?CPAN::Meta::Spec",
       "version" : "2"
    },
-   "name" : "App-Template-Maker",
+   "name" : "App-Path-Maker",
    "no_index" : {
       "directory" : [
          "t",
@@ -56,13 +56,13 @@
    "release_status" : "unstable",
    "resources" : {
       "bugtracker" : {
-         "web" : "https://github.com/shoichikaji/App-Template-Maker/issues"
+         "web" : "https://github.com/shoichikaji/App-Path-Maker/issues"
       },
-      "homepage" : "https://github.com/shoichikaji/App-Template-Maker",
+      "homepage" : "https://github.com/shoichikaji/App-Path-Maker",
       "repository" : {
          "type" : "git",
-         "url" : "git://github.com/shoichikaji/App-Template-Maker.git",
-         "web" : "https://github.com/shoichikaji/App-Template-Maker"
+         "url" : "git://github.com/shoichikaji/App-Path-Maker.git",
+         "web" : "https://github.com/shoichikaji/App-Path-Maker"
       }
    },
    "version" : "0.001"

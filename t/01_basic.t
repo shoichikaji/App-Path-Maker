@@ -2,8 +2,7 @@ use strict;
 use warnings;
 use Test::More;
 
-use App::Template::Maker;
-use Data::Dumper;
+use App::Path::Maker;
 use File::Temp qw(tempdir);
 use File::Spec::Functions qw(catfile catdir);
 sub slurp { open my $fh, "<:utf8", shift or die; join "", <$fh> }
@@ -11,7 +10,7 @@ sub slurp { open my $fh, "<:utf8", shift or die; join "", <$fh> }
 subtest base_dir => sub {
     my $tempdir = tempdir CLEANUP => 1;
 
-    my $maker = App::Template::Maker->new( base_dir => $tempdir );
+    my $maker = App::Path::Maker->new( base_dir => $tempdir );
 
     my $file;
 
@@ -43,7 +42,7 @@ subtest rel_dir => sub {
     my $tempdir = tempdir CLEANUP => 1;
     chdir $tempdir;
 
-    my $maker = App::Template::Maker->new;
+    my $maker = App::Path::Maker->new;
 
     my $file;
 

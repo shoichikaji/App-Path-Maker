@@ -1,12 +1,12 @@
 # NAME
 
-App::Template::Maker - create template files and directories
+App::Path::Maker - make files and directories as scaffolding
 
 # SYNOPSIS
 
-    use App::Template::Maker;
+    use App::Path::Maker;
 
-    my $maker = App::Template::Maker->new;
+    my $maker = App::Path::Maker->new;
     $maker->render_to_file('app.conf.mt' => 'app.conf', {name => 'my app'});
     $maker->create_dir('log');
     $maker->write_file('.gitignore', '*.tar.gz');
@@ -19,11 +19,12 @@ App::Template::Maker - create template files and directories
 
 # DESCRIPTION
 
-App::Template::Maker helps you create template files or directories.
+App::Path::Maker helps you make files or directories
+as scaffolding.
 When I wrote a CLI script for mojo,
 I found that [Mojolicious::Command](https://metacpan.org/pod/Mojolicious::Command) is very useful.
 This module provides some functionality of that module with
-template syntax of [Text::MicroTemplate](https://metacpan.org/pod/Text::MicroTemplate).
+template syntax [Text::MicroTemplate](https://metacpan.org/pod/Text::MicroTemplate).
 
 ## CONSTRUCTOR
 
@@ -31,7 +32,6 @@ Constructor `new` accepts following options:
 
 - base\_dir
 - package
-- use\_cache
 
 ## METHOD
 
