@@ -32,6 +32,7 @@ Constructor `new` accepts following options:
 
 - base\_dir
 - package
+- template\_header
 
 ## METHOD
 
@@ -39,7 +40,7 @@ Constructor `new` accepts following options:
 - `render($template_name, @arg)`
 - `render_to_file($template_name, $file, @arg)`
 - `create_dir($dir)`
-- `chmod_file($file)`
+- `chmod($path)`
 
 # SEE ALSO
 

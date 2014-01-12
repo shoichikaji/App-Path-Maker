@@ -30,11 +30,11 @@ subtest base_dir => sub {
     like slurp($file), qr/foo/;
     like slurp($file), qr/bar/;
 
-    $maker->chmod_file('write.txt', 0777);
+    $maker->chmod('write.txt', 0777);
     ok -x catfile($tempdir, 'write.txt');
 
     $maker->create_dir('dir');
-    ok -x catdir($tempdir, 'dir');
+    ok -d catdir($tempdir, 'dir');
 };
 
 
@@ -62,11 +62,11 @@ subtest rel_dir => sub {
     like slurp($file), qr/foo/;
     like slurp($file), qr/bar/;
 
-    $maker->chmod_file('write.txt', 0777);
+    $maker->chmod('write.txt', 0777);
     ok -x 'write.txt';
 
     $maker->create_dir('dir');
-    ok -x 'dir';
+    ok -d 'dir';
 
     chdir "/";
 };

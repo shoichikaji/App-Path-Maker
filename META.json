@@ -43,7 +43,9 @@
       },
       "runtime" : {
          "requires" : {
-            "Text::MicroTemplate::DataSection" : "0",
+            "Data::Section::Simple" : "0",
+            "Text::MicroTemplate::File" : "0",
+            "parent" : "0",
             "perl" : "5.008005"
          }
       },

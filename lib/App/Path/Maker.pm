@@ -7,15 +7,49 @@ use Cwd qw(getcwd);
 use File::Path qw(mkpath);
 use File::Basename qw(dirname);
 use File::Spec::Functions qw(catdir catfile file_name_is_absolute);
-use Text::MicroTemplate::DataSection;
 
 our $VERSION = "0.001";
+
+{
+    # taken from Text::MicroTemplate::DataSection
+    # want to add a functionality of inserting template header
+    package
+        Text::MicroTemplate::DataSection::WithHeader;
+    use Carp 'croak';
+    use Data::Section::Simple;
+    use parent 'Text::MicroTemplate::File';
+    sub new {
+        my ($class, @arg) = @_;
+        my $self = $class->SUPER::new(@arg);
+        $self->{package} ||= scalar caller;
+        $self->{section} = Data::Section::Simple->new( $self->{package} );
+        $self;
+    }
+    sub build_file {
+        my ($self, $file) = @_;
+        if (my $e = $self->{cache}{$file}) {
+            return $e;
+        }
+        my $data = $self->{section}->get_data_section($file);
+        if ($data) {
+            if (defined $self->{template_header}) {
+                $data = $self->{template_header} . $data;
+            }
+            $self->parse($data); # XXX assume $data is decoded
+            local $Text::MicroTemplate::_mt_setter = 'my $_mt = shift;';
+            my $f = $self->build;
+            $self->{cache}{$file} = $f if $self->{use_cache};
+            return $f;
+        }
+        croak "could not find template file: $file in __DATA__ section";
+    }
+}
 
 sub new {
     my $class = shift;
     my %opt   = ref $_[0] ? %{ $_[0] } : @_;
     my $base_dir = delete $opt{base_dir};
-    my $data_section  = Text::MicroTemplate::DataSection->new(
+    my $data_section = Text::MicroTemplate::DataSection::WithHeader->new(
         package => scalar(caller),
         %opt,
     );
@@ -35,11 +69,11 @@ sub render {
     my ($self, $template_name, @arg) = @_;
     $self->{data_section}->render_file($template_name, @arg);
 }
-sub chmod_file {
-    my ($self, $file, $mod) = @_;
-    $file = $self->_abs_path($file);
+sub chmod : method {
+    my ($self, $path, $mod) = @_;
+    $path = $self->_abs_path($path);
     my $oct_mod = sprintf '%lo', $mod;
-    chmod $mod, $file or croak "chmod $oct_mod $file: $!";
+    chmod $mod, $path or croak "chmod $oct_mod $path: $!";
 }
 sub create_dir {
     my ($self, $dir) = @_;
@@ -104,6 +138,8 @@ Constructor C<new> accepts following options:
 
 =item package
 
+=item template_header
+
 =back
 
 =head2 METHOD
@@ -118,7 +154,7 @@ Constructor C<new> accepts following options:
 
 =item C<< create_dir($dir) >>
 
-=item C<< chmod_file($file) >>
+=item C<< chmod($path) >>
 
 =back
 
