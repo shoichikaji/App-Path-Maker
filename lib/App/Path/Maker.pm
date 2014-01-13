@@ -170,14 +170,14 @@ See C<eg/template_header.pl> for example.
 
 =item template_dir
 
-By default, App::Path::Maker search for template files in
+By default, App::Path::Maker searches for template files in
 C<__DATA__> section.
-If C<template_dir> is provided, it also search for template files in
+If C<template_dir> is provided, it also searches for template files in
 C<template_dir>.
 
 =back
 
-Note that other options may be recognized by C<Text::MicroTemplate::File>.
+Note that other options may be recognized by L<Text::MicroTemplate::File>.
 
 =head2 METHOD
 

@@ -48,12 +48,12 @@ Constructor `$maker = App::Path::Maker->new` accepts following options:
 
 - template\_dir
 
-    By default, App::Path::Maker search for template files in
+    By default, App::Path::Maker searches for template files in
     `__DATA__` section.
-    If `template_dir` is provided, it also search for template files in
+    If `template_dir` is provided, it also searches for template files in
     `template_dir`.
 
-Note that other options may be recognized by `Text::MicroTemplate::File`.
+Note that other options may be recognized by [Text::MicroTemplate::File](https://metacpan.org/pod/Text::MicroTemplate::File).
 
 ## METHOD
 
