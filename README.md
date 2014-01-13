@@ -33,6 +33,7 @@ Constructor `new` accepts following options:
 - base\_dir
 - package
 - template\_header
+- template\_dir
 
 ## METHOD
 

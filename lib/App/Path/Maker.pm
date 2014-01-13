@@ -11,13 +11,13 @@ use File::Spec::Functions qw(catdir catfile file_name_is_absolute);
 our $VERSION = "0.001";
 
 {
-    # taken from Text::MicroTemplate::DataSection
-    # want to add a functionality of inserting template header
     package
         Text::MicroTemplate::DataSection::WithHeader;
     use Carp 'croak';
     use Data::Section::Simple;
+    use File::Spec::Functions qw(catfile);
     use parent 'Text::MicroTemplate::File';
+
     sub new {
         my ($class, @arg) = @_;
         my $self = $class->SUPER::new(@arg);
@@ -25,23 +25,40 @@ our $VERSION = "0.001";
         $self->{section} = Data::Section::Simple->new( $self->{package} );
         $self;
     }
+    sub _find_data {
+        my ($self, $file) = @_;
+        if (my $data = $self->{section}->get_data_section($file)) {
+            return $data;
+        } elsif ($self->{template_dir}) {
+            return $self->_slurp( catfile($self->{template_dir}, $file) );
+        } else {
+            return;
+        }
+    }
+    # based on Text::MicroTemplate::DataSection::build_file()
     sub build_file {
         my ($self, $file) = @_;
         if (my $e = $self->{cache}{$file}) {
             return $e;
         }
-        my $data = $self->{section}->get_data_section($file);
-        if ($data) {
-            if (defined $self->{template_header}) {
-                $data = $self->{template_header} . $data;
-            }
-            $self->parse($data); # XXX assume $data is decoded
-            local $Text::MicroTemplate::_mt_setter = 'my $_mt = shift;';
-            my $f = $self->build;
-            $self->{cache}{$file} = $f if $self->{use_cache};
-            return $f;
+        my $data = $self->_find_data($file);
+        if (!$data) {
+            local $Carp::CarpLevel = $Carp::CarpLevel + 1;
+            croak "could not find template file '$file' in __DATA__ section"
+                . ($self->{template_dir} ? ' nor in ' . $self->{template_dir} : '');
         }
-        croak "could not find template file: $file in __DATA__ section";
+        $data = $self->{template_header} . $data if $self->{template_header};
+        $self->parse($data); # XXX assume $data is decoded
+        local $Text::MicroTemplate::_mt_setter = 'my $_mt = shift;';
+        my $f = $self->build;
+        $self->{cache}{$file} = $f if $self->{use_cache};
+        return $f;
+    }
+    sub _slurp {
+        my (undef, $file) = @_;
+        open my $fh, "<:utf8", $file or return;
+        local $/;
+        scalar <$fh>;
     }
 }
 
@@ -139,6 +156,8 @@ Constructor C<new> accepts following options:
 =item package
 
 =item template_header
+
+=item template_dir
 
 =back
 
