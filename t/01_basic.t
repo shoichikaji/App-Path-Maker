@@ -1,14 +1,12 @@
 use strict;
-use warnings;
+use warnings FATAL => "all";
 use Test::More;
+use t::Util;
 
 use App::Path::Maker;
-use File::Temp qw(tempdir);
-use File::Spec::Functions qw(catfile catdir);
-sub slurp { open my $fh, "<:utf8", shift or die; join "", <$fh> }
 
 subtest base_dir => sub {
-    my $tempdir = tempdir CLEANUP => 1;
+    my $tempdir = tempdir;
 
     my $maker = App::Path::Maker->new( base_dir => $tempdir );
 
@@ -18,6 +16,11 @@ subtest base_dir => sub {
     $file = catfile($tempdir, 'write.txt');
     ok -f $file;
     like slurp($file), qr/writer!!/;
+
+    like $maker->render('hello.mt'), qr/hello world/;
+
+    eval { $maker->render('not_found') };
+    ok $@;
 
     $maker->render_to_file('hello.mt' => 'hello.txt');
     $file = catfile($tempdir, 'hello.txt');
@@ -39,17 +42,23 @@ subtest base_dir => sub {
 
 
 subtest rel_dir => sub {
-    my $tempdir = tempdir CLEANUP => 1;
+    my $tempdir = tempdir;
     chdir $tempdir;
 
     my $maker = App::Path::Maker->new;
 
     my $file;
 
+
     $maker->write_file('write.txt', 'writer!!');
     $file = 'write.txt';
     ok -f $file;
     like slurp($file), qr/writer!!/;
+
+    like $maker->render('hello.mt'), qr/hello world/;
+
+    eval { $maker->render('not_found') };
+    ok $@;
 
     $maker->render_to_file('hello.mt' => 'hello.txt');
     $file = 'hello.txt';

@@ -2,14 +2,11 @@ use strict;
 use warnings FATAL => 'all';
 use utf8;
 use Test::More;
+use t::Util;
 
 use App::Path::Maker;
-use File::Temp qw(tempdir);
-use File::Spec::Functions qw(catfile catdir);
-sub slurp { open my $fh, "<:utf8", shift or die; join "", <$fh> }
-sub spew  { open my $fh, ">:utf8", $_[0] or die; print {$fh} $_[1] }
 
-my $tempdir = tempdir CLEANUP => 1;
+my $tempdir = tempdir;
 my $template_dir = catdir($tempdir, "template");
 mkdir $template_dir or die;
 spew catfile($template_dir, 'file1'), 'hello <?= $_[0] ?>';

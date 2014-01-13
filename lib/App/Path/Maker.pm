@@ -35,7 +35,7 @@ our $VERSION = "0.001";
             return;
         }
     }
-    # based on Text::MicroTemplate::DataSection::build_file()
+    # taken from Text::MicroTemplate::DataSection::build_file()
     sub build_file {
         my ($self, $file) = @_;
         if (my $e = $self->{cache}{$file}) {
@@ -44,7 +44,8 @@ our $VERSION = "0.001";
         my $data = $self->_find_data($file);
         if (!$data) {
             local $Carp::CarpLevel = $Carp::CarpLevel + 1;
-            croak "could not find template file '$file' in __DATA__ section"
+            croak "could not find template file '$file'"
+                . "in __DATA__ section of " . $self->{package}
                 . ($self->{template_dir} ? ' nor in ' . $self->{template_dir} : '');
         }
         $data = $self->{template_header} . $data if $self->{template_header};
