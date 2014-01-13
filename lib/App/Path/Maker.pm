@@ -126,16 +126,17 @@ App::Path::Maker - make files and directories as scaffolding
 
     use App::Path::Maker;
 
-    my $maker = App::Path::Maker->new;
-    $maker->render_to_file('app.conf.mt' => 'app.conf', {name => 'my app'});
-    $maker->create_dir('log');
-    $maker->write_file('.gitignore', '*.tar.gz');
+    my $maker = App::Path::Maker->new(base_dir => $ENV{HOME});
+    $maker->render_to_file('gitconfig.mt' => '.gitconfig', $ENV{USER});
+    $maker->create_dir('.swap');
+    $maker->write_file('.vimrc', "set directory=~/.swap\n");
+    $maker->chmod('.ssh/id_rsa', 0400);
 
     __DATA__
 
-    @@ app.conf.mt
-    ? my $arg = shift;
-    name = <?= $arg->{name} ?>
+    @@ gitconfig.mt
+    [user]
+        name = <?= $_[0] ?>
 
 =head1 DESCRIPTION
 
