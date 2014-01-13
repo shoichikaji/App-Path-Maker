@@ -45,7 +45,7 @@ our $VERSION = "0.001";
         if (!$data) {
             local $Carp::CarpLevel = $Carp::CarpLevel + 1;
             croak "could not find template file '$file'"
-                . "in __DATA__ section of " . $self->{package}
+                . " in __DATA__ section of $self->{package}"
                 . ($self->{template_dir} ? ' nor in ' . $self->{template_dir} : '');
         }
         $data = $self->{template_header} . $data if $self->{template_header};
