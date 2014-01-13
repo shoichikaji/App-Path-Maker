@@ -44,14 +44,14 @@ Constructor `$maker = App::Path::Maker->new` accepts following options:
 - template\_header
 
     If `template_header` is provided, it is inserted to every template files.
-    See `eg/template_header.pl` for example.
+    See `eg/template-header.pl` for example.
 
 - template\_dir
 
     By default, App::Path::Maker searches for template files in
     `__DATA__` section.
     If `template_dir` is provided, it also searches for template files in
-    `template_dir`.
+    `template_dir`. See `eg/module-scaffold.pl` for example.
 
 Note that other options may be recognized by [Text::MicroTemplate::File](https://metacpan.org/pod/Text::MicroTemplate::File).
 

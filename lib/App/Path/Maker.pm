@@ -166,14 +166,14 @@ Default: C<caller>.
 =item template_header
 
 If C<template_header> is provided, it is inserted to every template files.
-See C<eg/template_header.pl> for example.
+See C<eg/template-header.pl> for example.
 
 =item template_dir
 
 By default, App::Path::Maker searches for template files in
 C<__DATA__> section.
 If C<template_dir> is provided, it also searches for template files in
-C<template_dir>.
+C<template_dir>. See C<eg/module-scaffold.pl> for example.
 
 =back
 
