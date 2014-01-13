@@ -28,20 +28,54 @@ template syntax [Text::MicroTemplate](https://metacpan.org/pod/Text::MicroTempla
 
 ## CONSTRUCTOR
 
-Constructor `new` accepts following options:
+Constructor `$maker = App::Path::Maker->new` accepts following options:
 
 - base\_dir
+
+    If relative path is specified to methods `chmod`, `create_dir`,
+    `render_to_file` or `write_file`, then it is assumed to relative to the `base_dir`.
+    Default: current working directory.
+
 - package
+
+    Whose `__DATA__` section to be read.
+    Default: `caller`.
+
 - template\_header
+
+    If `template_header` is provided, it is inserted to every template files.
+    See `eg/template_header.pl` for example.
+
 - template\_dir
+
+    By default, App::Path::Maker search for template files in
+    `__DATA__` section.
+    If `template_dir` is provided, it also search for template files in
+    `template_dir`.
+
+Note that other options may be recognized by `Text::MicroTemplate::File`.
 
 ## METHOD
 
-- `write_file($file, $text)`
-- `render($template_name, @arg)`
-- `render_to_file($template_name, $file, @arg)`
-- `create_dir($dir)`
-- `chmod($path)`
+- `$maker->chmod($path)`
+
+    Change permission of `$path`.
+
+- `$maker->create_dir($dir)`
+
+    Create directory `$dir`.
+
+- `$string = $maker->render($template_name, @arg)`
+
+    Render `$template_name` with `@arg`.
+
+- `$maker->render_to_file($template_name, $file, @arg)`
+
+    Render `$template_name` to `$file` with `@arg`.
+
+- `$maker->write_file($file, $string)`
+
+    Write `$string` to `$file`.
 
 # SEE ALSO
 

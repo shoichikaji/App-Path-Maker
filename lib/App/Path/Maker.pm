@@ -107,10 +107,10 @@ sub render_to_file {
     $self->write_file( $file, $self->render($template_name, @arg) );
 }
 sub write_file {
-    my ($self, $file, $text) = @_;
+    my ($self, $file, $string) = @_;
     $file = $self->_abs_path($file);
     open my $fh, ">:utf8", $file or croak "open $file: $!";
-    print {$fh} $text;
+    print {$fh} $string;
 }
 
 1;
@@ -148,33 +148,60 @@ template syntax L<Text::MicroTemplate>.
 
 =head2 CONSTRUCTOR
 
-Constructor C<new> accepts following options:
+Constructor C<< $maker = App::Path::Maker->new >> accepts following options:
 
 =over 4
 
 =item base_dir
 
+If relative path is specified to methods C<chmod>, C<create_dir>,
+C<render_to_file> or C<write_file>, then it is assumed to relative to the C<base_dir>.
+Default: current working directory.
+
 =item package
+
+Whose C<__DATA__> section to be read.
+Default: C<caller>.
 
 =item template_header
 
+If C<template_header> is provided, it is inserted to every template files.
+See C<eg/template_header.pl> for example.
+
 =item template_dir
 
+By default, App::Path::Maker search for template files in
+C<__DATA__> section.
+If C<template_dir> is provided, it also search for template files in
+C<template_dir>.
+
 =back
+
+Note that other options may be recognized by C<Text::MicroTemplate::File>.
 
 =head2 METHOD
 
 =over 4
 
-=item C<< write_file($file, $text) >>
+=item C<< $maker->chmod($path) >>
 
-=item C<< render($template_name, @arg) >>
+Change permission of C<$path>.
 
-=item C<< render_to_file($template_name, $file, @arg) >>
+=item C<< $maker->create_dir($dir) >>
 
-=item C<< create_dir($dir) >>
+Create directory C<$dir>.
 
-=item C<< chmod($path) >>
+=item C<< $string = $maker->render($template_name, @arg) >>
+
+Render C<$template_name> with C<@arg>.
+
+=item C<< $maker->render_to_file($template_name, $file, @arg) >>
+
+Render C<$template_name> to C<$file> with C<@arg>.
+
+=item C<< $maker->write_file($file, $string) >>
+
+Write C<$string> to C<$file>.
 
 =back
 
