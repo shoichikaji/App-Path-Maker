@@ -4,12 +4,12 @@ use warnings;
 use utf8;
 use FindBin;
 use lib "$FindBin::Bin/../lib";
-use App::Path::Maker;
+use Path::Maker;
 
 my ($name, $email) = @ARGV;
 die "usage: $0 NAME EMAIL\n" unless $email;
 
-my $maker = App::Path::Maker->new(
+my $maker = Path::Maker->new(
     base_dir => $ENV{HOME},
     template_header => "? my \$arg = shift;\n"
 );

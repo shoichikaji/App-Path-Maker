@@ -3,12 +3,12 @@ use warnings FATAL => "all";
 use Test::More;
 use t::Util;
 
-use App::Path::Maker;
+use Path::Maker;
 
 my $tempdir = tempdir;
 chdir $tempdir;
 
-my $maker = App::Path::Maker->new(template_header => "? my \$arg = shift;\n");
+my $maker = Path::Maker->new(template_header => "? my \$arg = shift;\n");
 $maker->render_to_file('with-header' => 'hello.txt', {arg1 => 1, arg2 => 2});
 my $file = 'hello.txt';
 ok -f $file;

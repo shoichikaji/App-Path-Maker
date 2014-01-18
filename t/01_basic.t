@@ -3,12 +3,12 @@ use warnings FATAL => "all";
 use Test::More;
 use t::Util;
 
-use App::Path::Maker;
+use Path::Maker;
 
 subtest base_dir => sub {
     my $tempdir = tempdir;
 
-    my $maker = App::Path::Maker->new( base_dir => $tempdir );
+    my $maker = Path::Maker->new( base_dir => $tempdir );
 
     my $file;
 
@@ -45,7 +45,7 @@ subtest rel_dir => sub {
     my $tempdir = tempdir;
     chdir $tempdir;
 
-    my $maker = App::Path::Maker->new;
+    my $maker = Path::Maker->new;
 
     my $file;
 

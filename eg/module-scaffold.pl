@@ -4,13 +4,13 @@ use warnings;
 use utf8;
 use FindBin;
 use lib "$FindBin::Bin/../lib";
-use App::Path::Maker;
+use Path::Maker;
 sub to_dist { local $_ = shift; s{::}{-}g; $_      }
 sub to_path { local $_ = shift; s{::}{/}g; "$_.pm" }
 
 my $module = shift or die "usage: $0 Your::Module\n";
 
-my $maker = App::Path::Maker->new(
+my $maker = Path::Maker->new(
     template_dir    => "$FindBin::Bin/share",
     template_header => "? my \$arg = shift;\n",
 );

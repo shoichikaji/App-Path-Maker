@@ -1,12 +1,12 @@
 # NAME
 
-App::Path::Maker - make files and directories as scaffolding
+Path::Maker - make files and directories as scaffolding
 
 # SYNOPSIS
 
-    use App::Path::Maker;
+    use Path::Maker;
 
-    my $maker = App::Path::Maker->new(base_dir => $ENV{HOME});
+    my $maker = Path::Maker->new(base_dir => $ENV{HOME});
     $maker->render_to_file('gitconfig.mt' => '.gitconfig', $ENV{USER});
     $maker->create_dir('.swap');
     $maker->write_file('.vimrc', "set directory=~/.swap\n");
@@ -20,7 +20,7 @@ App::Path::Maker - make files and directories as scaffolding
 
 # DESCRIPTION
 
-App::Path::Maker helps you make files or directories
+Path::Maker helps you make files or directories
 as scaffolding.
 When I wrote a CLI script for mojo,
 I found that [Mojolicious::Command](https://metacpan.org/pod/Mojolicious::Command) is very useful.
@@ -29,7 +29,7 @@ template syntax [Text::MicroTemplate](https://metacpan.org/pod/Text::MicroTempla
 
 ## CONSTRUCTOR
 
-Constructor `$maker = App::Path::Maker->new` accepts following options:
+Constructor `$maker = Path::Maker->new` accepts following options:
 
 - base\_dir
 
@@ -49,7 +49,7 @@ Constructor `$maker = App::Path::Maker->new` accepts following options:
 
 - template\_dir
 
-    By default, App::Path::Maker searches for template files in
+    By default, Path::Maker searches for template files in
     `__DATA__` section.
     If `template_dir` is provided, it also searches for template files in
     `template_dir`. See `eg/module-scaffold.pl` for example.

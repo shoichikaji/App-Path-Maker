@@ -4,10 +4,10 @@ use utf8;
 use Test::More;
 use t::Util;
 
-use App::Path::Maker;
+use Path::Maker;
 
 my $tempdir = tempdir;
-my $maker = App::Path::Maker->new( base_dir => $tempdir );
+my $maker = Path::Maker->new( base_dir => $tempdir );
 $maker->render_to_file('utf8.mt' => 'utf8.txt', 'かきくけこ');
 my $file = catfile($tempdir, 'utf8.txt');
 ok -f $file;

@@ -5,10 +5,10 @@ use Test::More;
 use t::Util;
 
 use t::My;
-use App::Path::Maker;
+use Path::Maker;
 
 my $tempdir = tempdir;
-my $maker = App::Path::Maker->new( base_dir => $tempdir, package => 't::My' );
+my $maker = Path::Maker->new( base_dir => $tempdir, package => 't::My' );
 like $maker->render('my1', 'baz'), qr/foo bar baz/;
 
 done_testing;
