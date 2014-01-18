@@ -29,7 +29,7 @@ template syntax [Text::MicroTemplate](https://metacpan.org/pod/Text::MicroTempla
 
 ## CONSTRUCTOR
 
-Constructor `$maker = Path::Maker->new` accepts following options:
+Constructor `$maker = Path::Maker->new(%options)` accepts following options:
 
 - base\_dir
 
@@ -54,11 +54,9 @@ Constructor `$maker = Path::Maker->new` accepts following options:
     If `template_dir` is provided, it also searches for template files in
     `template_dir`. See `eg/module-scaffold.pl` for example.
 
-Note that other options may be recognized by [Text::MicroTemplate::File](https://metacpan.org/pod/Text::MicroTemplate::File).
-
 ## METHOD
 
-- `$maker->chmod($path)`
+- `$maker->chmod($path, $mode)`
 
     Change permission of `$path`.
 

@@ -149,7 +149,7 @@ template syntax L<Text::MicroTemplate>.
 
 =head2 CONSTRUCTOR
 
-Constructor C<< $maker = Path::Maker->new >> accepts following options:
+Constructor C<< $maker = Path::Maker->new(%options) >> accepts following options:
 
 =over 4
 
@@ -178,13 +178,11 @@ C<template_dir>. See C<eg/module-scaffold.pl> for example.
 
 =back
 
-Note that other options may be recognized by L<Text::MicroTemplate::File>.
-
 =head2 METHOD
 
 =over 4
 
-=item C<< $maker->chmod($path) >>
+=item C<< $maker->chmod($path, $mode) >>
 
 Change permission of C<$path>.
 
