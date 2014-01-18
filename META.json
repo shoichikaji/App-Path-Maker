@@ -58,13 +58,13 @@
    "release_status" : "unstable",
    "resources" : {
       "bugtracker" : {
-         "web" : "https://github.com/shoichikaji/App-Path-Maker/issues"
+         "web" : "https://github.com/shoichikaji/Path-Maker/issues"
       },
-      "homepage" : "https://github.com/shoichikaji/App-Path-Maker",
+      "homepage" : "https://github.com/shoichikaji/Path-Maker",
       "repository" : {
          "type" : "git",
-         "url" : "git://github.com/shoichikaji/App-Path-Maker.git",
-         "web" : "https://github.com/shoichikaji/App-Path-Maker"
+         "url" : "git://github.com/shoichikaji/Path-Maker.git",
+         "web" : "https://github.com/shoichikaji/Path-Maker"
       }
    },
    "version" : "0.001"
