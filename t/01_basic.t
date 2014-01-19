@@ -33,8 +33,11 @@ subtest base_dir => sub {
     like slurp($file), qr/foo/;
     like slurp($file), qr/bar/;
 
-    $maker->chmod('write.txt', 0777);
-    ok -x catfile($tempdir, 'write.txt');
+    SKIP: {
+        skip "chmod 0777 doesn't work on MSWin32", 1, if $^O eq 'MSWin32';
+        $maker->chmod('write.txt', 0777);
+        ok -x catfile($tempdir, 'write.txt');
+    }
 
     $maker->create_dir('dir');
     ok -d catdir($tempdir, 'dir');
@@ -71,8 +74,11 @@ subtest rel_dir => sub {
     like slurp($file), qr/foo/;
     like slurp($file), qr/bar/;
 
-    $maker->chmod('write.txt', 0777);
-    ok -x 'write.txt';
+    SKIP: {
+        skip "chmod 0777 doesn't work on MSWin32", 1, if $^O eq 'MSWin32';
+        $maker->chmod('write.txt', 0777);
+        ok -x 'write.txt';
+    }
 
     $maker->create_dir('dir');
     ok -d 'dir';
