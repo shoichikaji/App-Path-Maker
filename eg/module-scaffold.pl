@@ -27,7 +27,7 @@ my $arg   = {
 $maker->create_dir($dist);
 $maker->render_to_file('Makefile.PL'    => "$dist/Makefile.PL",   $arg);
 $maker->render_to_file('Changes'        => "$dist/Changes",       $arg);
-$maker->render_to_file('Module.pm'      => "$dist/lib/$path",     $arg);
+$maker->render_to_file('Module'         => "$dist/lib/$path",     $arg);
 $maker->render_to_file('t/00_compile.t' => "$dist/t/00_copile.t", $arg);
 $maker->render_to_file('script.pl'      => "$dist/script.pl",     $arg);
 $maker->chmod("$dist/script.pl", 0755);

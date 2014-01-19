@@ -34,7 +34,7 @@ subtest base_dir => sub {
     like slurp($file), qr/bar/;
 
     SKIP: {
-        skip "chmod 0777 doesn't work on MSWin32", 1, if $^O eq 'MSWin32';
+        skip "chmod 0777 doesn't work on MSWin32", 1 if $^O eq 'MSWin32';
         $maker->chmod('write.txt', 0777);
         ok -x catfile($tempdir, 'write.txt');
     }
@@ -75,7 +75,7 @@ subtest rel_dir => sub {
     like slurp($file), qr/bar/;
 
     SKIP: {
-        skip "chmod 0777 doesn't work on MSWin32", 1, if $^O eq 'MSWin32';
+        skip "chmod 0777 doesn't work on MSWin32", 1 if $^O eq 'MSWin32';
         $maker->chmod('write.txt', 0777);
         ok -x 'write.txt';
     }
