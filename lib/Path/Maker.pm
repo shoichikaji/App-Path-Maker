@@ -8,7 +8,7 @@ use File::Path qw(mkpath);
 use File::Basename qw(dirname);
 use File::Spec::Functions qw(catdir catfile file_name_is_absolute);
 
-our $VERSION = "0.003";
+our $VERSION = "0.004";
 
 {
     package
