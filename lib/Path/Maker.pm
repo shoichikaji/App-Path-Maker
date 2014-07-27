@@ -28,6 +28,7 @@ our $VERSION = "0.003";
     sub _find_data {
         my ($self, $file) = @_;
         if (my $data = $self->{section}->get_data_section($file)) {
+            $data =~ s{\n{2}$}{\n};
             return $data;
         } elsif ($self->{template_dir}) {
             return $self->_slurp( catfile($self->{template_dir}, $file) );
