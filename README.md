@@ -93,4 +93,4 @@ it under the same terms as Perl itself.
 
 # AUTHOR
 
-Shoichi Kaji <skaji@outlook.com>
+Shoichi Kaji <skaji@cpan.org>

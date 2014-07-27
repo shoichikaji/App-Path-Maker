@@ -222,7 +222,7 @@ it under the same terms as Perl itself.
 
 =head1 AUTHOR
 
-Shoichi Kaji E<lt>skaji@outlook.comE<gt>
+Shoichi Kaji E<lt>skaji@cpan.orgE<gt>
 
 =cut
 
